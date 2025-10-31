@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -25,6 +27,10 @@ public class 	QuestionController {
 	public Result<?> saveQuestion(@RequestBody QuestionSaveDTO questionSaveDTO) {
 		if (questionSaveDTO != null) {
 			Questions questions = new Questions();
+			if(questionSaveDTO.getId() != null) questions.setId(questionSaveDTO.getId());
+			questions.setTitle(questionSaveDTO.getTitle());
+			questions.setScore(questionSaveDTO.getScore());
+			questions.setType(questionSaveDTO.getType());
 			if(questionSaveDTO.getType() == (byte) 1){
 				JsonArray inputArray = new JsonArray();
 				JsonArray correct = new JsonArray();
@@ -45,11 +51,20 @@ public class 	QuestionController {
 				questions.setOptions(resultArray.toString());
 			} else if (questionSaveDTO.getType() == (byte) 2) {
 				questions.setOptions(questionSaveDTO.getBlankContent());
+				Integer originScore = questions.getScore();
+				String regex = "\\$(\\d+)\\{(.+?)}";
+				Pattern pattern = Pattern.compile(regex);
+				Matcher matcher = pattern.matcher(questions.getOptions());
+				int score = 0;
+				while (matcher.find()) {
+					String scoreString = matcher.group(1);
+					int parseInt = 0;
+					try {parseInt = Integer.parseInt(scoreString);}
+					catch (NumberFormatException ignored) {}
+					score += parseInt;
+				}
+				if(score > originScore) questions.setScore(score);
 			}
-			if(questionSaveDTO.getId() != null) questions.setId(questionSaveDTO.getId());
-			questions.setTitle(questionSaveDTO.getTitle());
-			questions.setScore(questionSaveDTO.getScore());
-			questions.setType(questionSaveDTO.getType());
 			Questions result = questionsService.saveQuestions(questions);
 			return result == null ? Result.error("服务器错误") : Result.success();
 		}

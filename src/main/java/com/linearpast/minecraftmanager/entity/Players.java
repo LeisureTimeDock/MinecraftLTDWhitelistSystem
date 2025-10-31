@@ -27,6 +27,7 @@ public class Players {
 
 	@Column(name = "create_time")
 	private LocalDateTime createTime;
+	@Lob
 	private String description;
 	@OneToOne
 	@JoinColumn(name = "email")
