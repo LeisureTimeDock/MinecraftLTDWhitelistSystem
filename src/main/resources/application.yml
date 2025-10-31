@@ -11,9 +11,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/minecraft_manager_ltd?useSSL=false
     username: admin
     password: 123456
-#    url: jdbc:mysql://127.0.0.1:3308/minecraft_manager_ltd?useSSL=false
-#    username: leisuretimedock
-#    password: ltd20250706
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -29,8 +26,8 @@ spring:
           auth: true
           ssl:
             enable: true
-    password: 1111
-    username: email@163.com
+    username: admin@163.com
+    password: 123456789
     port: 465
     host: smtp.163.com
 
