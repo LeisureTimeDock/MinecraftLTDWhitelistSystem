@@ -55,9 +55,8 @@ public class ConnectTask implements Callable<MinecraftClient> {
 		try {
 			log.debug("Pausing for {} ms", this.connectOptions.getTimeBetweenRetries().toMillis());
 			Thread.sleep(this.connectOptions.getTimeBetweenRetries().toMillis());
-		} catch (InterruptedException var2) {
-			InterruptedException e = var2;
-			e.printStackTrace();
+		} catch (InterruptedException e) {
+            e.printStackTrace();
 			Thread.currentThread().interrupt();
 		}
 

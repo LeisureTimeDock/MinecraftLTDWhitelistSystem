@@ -33,17 +33,6 @@ import java.util.Map;
 
 public class HttpUtils {
 
-    /**
-     * get
-     *
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doGet(String host, String path, String method,
                                      Map<String, String> headers,
                                      Map<String, String> querys)
@@ -58,18 +47,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * post form
-     *
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @param bodys
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doPost(String host, String path, String method,
                                       Map<String, String> headers,
                                       Map<String, String> querys,
@@ -96,18 +73,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * Post String
-     *
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @param body
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doPost(String host, String path, String method,
                                       Map<String, String> headers,
                                       Map<String, String> querys,
@@ -127,18 +92,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * Post stream
-     *
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @param body
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doPost(String host, String path, String method,
                                       Map<String, String> headers,
                                       Map<String, String> querys,
@@ -158,17 +111,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * Put String
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @param body
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doPut(String host, String path, String method,
                                      Map<String, String> headers,
                                      Map<String, String> querys,
@@ -188,17 +130,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * Put stream
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @param body
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doPut(String host, String path, String method,
                                      Map<String, String> headers,
                                      Map<String, String> querys,
@@ -218,17 +149,6 @@ public class HttpUtils {
         return httpClient.execute(request);
     }
 
-    /**
-     * Delete
-     *
-     * @param host
-     * @param path
-     * @param method
-     * @param headers
-     * @param querys
-     * @return
-     * @throws Exception
-     */
     public static HttpResponse doDelete(String host, String path, String method,
                                         Map<String, String> headers,
                                         Map<String, String> querys)
@@ -252,7 +172,7 @@ public class HttpUtils {
         if (null != querys) {
             StringBuilder sbQuery = new StringBuilder();
             for (Map.Entry<String, String> query : querys.entrySet()) {
-                if (0 < sbQuery.length()) {
+                if (!sbQuery.isEmpty()) {
                     sbQuery.append("&");
                 }
                 if (StringUtils.isBlank(query.getKey()) && !StringUtils.isBlank(query.getValue())) {
@@ -266,7 +186,7 @@ public class HttpUtils {
                     }
                 }
             }
-            if (0 < sbQuery.length()) {
+            if (!sbQuery.isEmpty()) {
                 sbUrl.append("?").append(sbQuery);
             }
         }
@@ -303,9 +223,7 @@ public class HttpUtils {
             ClientConnectionManager ccm = httpClient.getConnectionManager();
             SchemeRegistry registry = ccm.getSchemeRegistry();
             registry.register(new Scheme("https", ssf, 443));
-        } catch (KeyManagementException ex) {
-            throw new RuntimeException(ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (KeyManagementException | NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);
         }
     }

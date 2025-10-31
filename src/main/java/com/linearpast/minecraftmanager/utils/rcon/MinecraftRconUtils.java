@@ -12,6 +12,7 @@ import java.util.concurrent.*;
 
 import io.graversen.minecraft.rcon.service.ConnectOptions;
 import io.graversen.minecraft.rcon.service.*;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,8 @@ public class MinecraftRconUtils {
 	private final ScheduledExecutorService executorService;
 	private volatile IMinecraftClient minecraftClient;
 	private volatile MinecraftRcon minecraftRcon;
-	private volatile boolean isConnected;
+	@Setter
+    private volatile boolean isConnected;
 	private volatile CountDownLatch connectionLatch;
 
 	public MinecraftRconUtils(RconDetails rconDetails, ConnectOptions connectOptions) {
@@ -108,11 +110,8 @@ public class MinecraftRconUtils {
 		if(this.minecraftClient != null) this.minecraftRcon = new MinecraftRcon(this.minecraftClient);
 		else this.minecraftRcon = null;
 	}
-	public void setConnected(boolean connected) {
-		this.isConnected = connected;
-	}
 
-	private class TestConnect implements Runnable {
+    private class TestConnect implements Runnable {
 		private final RconDetails rconDetails;
 		TestConnect(RconDetails rconDetails) {
 			this.rconDetails = rconDetails;
