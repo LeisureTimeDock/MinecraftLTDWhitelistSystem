@@ -301,6 +301,7 @@ public class PlayerController {
 									//若标记了分数，最大分数减去，后续计算未标记分数的答案的均分
 									if(parseInt == 0) k++;
 									else maxScore -= parseInt;
+									//或逻辑
                                     if (Arrays.stream(answerString.split("\\|")).toList().contains(resultList.get(i))) {
 										score += parseInt;
 										if(parseInt == 0) j++;
@@ -309,13 +310,13 @@ public class PlayerController {
 								}
 								if(k > 0) {
 									//未标记分数的答案的每题平均分
-									int averageScore = Math.round((float)maxScore / k);
+									float averageScore = (float)maxScore / k;
 									//答对的未标记 * 未标记的平均分 = 未标记的答对总分
 									int rightScore;
 									//如果答对的未标记 == 总未标记，直接给未标记的满分：为了弥补四舍五入带来的误差
 									//否则直接给 未标记平均分 * 未标记答对
 									if(j == k) rightScore = maxScore;
-									else rightScore = averageScore * j;
+									else rightScore = Math.round(averageScore * j);
 									score += rightScore;
 								}
 								playerAnswers.setScore(score);
