@@ -124,5 +124,11 @@
             </resource>
         </resources>
     </build>
-
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/LeisureTimeDock/MinecraftLTDWhitelistSystem</url>
+        </repository>
+    </distributionManagement>
 </project>
