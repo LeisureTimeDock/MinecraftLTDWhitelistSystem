@@ -8,6 +8,7 @@ import org.springframework.core.env.PropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ConfigLoader implements EnvironmentPostProcessor {
 	public static final Map<String, String> config = new HashMap<>();
@@ -20,7 +21,7 @@ public class ConfigLoader implements EnvironmentPostProcessor {
 			).findFirst().orElseThrow();
 			if(source instanceof MapPropertySource mapPropertySource) {
 				for (String key : mapPropertySource.getPropertyNames()) {
-					config.put(key, mapPropertySource.getProperty(key).toString());
+					config.put(key, Objects.requireNonNull(mapPropertySource.getProperty(key)).toString());
 					System.out.println(key + "=" + mapPropertySource.getProperty(key));
 				}
 			}
