@@ -9,8 +9,11 @@ spring:
     name: MinecraftManager
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/minecraft_manager_ltd?useSSL=false
-    username: admin
-    password: 123456
+    username: root
+    password: 3235566389lzh
+#    url: jdbc:mysql://127.0.0.1:3308/minecraft_manager_ltd?useSSL=false
+#    username: leisuretimedock
+#    password: ltd20250706
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -26,8 +29,8 @@ spring:
           auth: true
           ssl:
             enable: true
-    username: admin@163.com
-    password: 123456789
+    password: 1111
+    username: email@163.com
     port: 465
     host: smtp.163.com
 
